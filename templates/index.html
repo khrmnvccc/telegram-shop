@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do'kon</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>🛍️ Mening Do'konim</h1>
+
+<a href="/cart">
+    <button>🛒 Savatni ko'rish</button>
+</a>
+
+<div class="products">
+{% for product in products %}
+
+<div class="card">
+    <img src="{{ product[3] }}">
+    <h2>{{ product[1] }}</h2>
+    <p>{{ product[2] }} so'm</p>
+
+<a href="/add/{{ loop.index }}">
+    <button>Savatga qo'shish</button>
+</a>
+
+<br><br>
+
+<a href="/edit/{{ product[0] }}">
+    <button>✏️ Tahrirlash</button>
+</a>
+
+<br><br>
+
+<a href="/delete/{{ product[0] }}">
+    <button>🗑 O'chirish</button>
+</a>
+    
+</div>
+
+{% endfor %}
+</div>
+
+</body>
+</html>

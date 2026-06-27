@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>🛒 Savatim</h1>
+
+<div class="products">
+
+{% for product in products %}
+
+<div class="card">
+
+    <img src="{{ product[3] }}">
+
+    <h2>{{ product[1] }}</h2>
+
+    <p>{{ product[2] }} so'm</p>
+
+<a href="/remove/{{ product[0] }}">
+    <button>❌ O'chirish</button>
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<h2 style="text-align:center;">
+    💰 Jami: {{ total }} so'm
+</h2>
+
+<div style="text-align:center; margin-top:20px;">
+    <a href="/checkout">
+    <button>📦 Buyurtma berish</button>
+</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Mahsulotni tahrirlash</title>
+</head>
+<body>
+
+<h1>✏️ Mahsulotni tahrirlash</h1>
+
+<form action="/update/{{ product[0] }}" method="POST">
+
+    <p>Mahsulot nomi</p>
+    <input
+        type="text"
+        name="name"
+        value="{{ product[1] }}"
+        required
+    >
+
+    <p>Narxi</p>
+    <input
+        type="text"
+        name="price"
+        value="{{ product[2] }}"
+        required
+    >
+
+    <p>Rasm URL</p>
+    <input
+        type="text"
+        name="image"
+        value="{{ product[3] }}"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        💾 Saqlash
+    </button>
+
+</form>
+
+</body>
+</html>
