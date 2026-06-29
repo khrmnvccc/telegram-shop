@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyurtmalar</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">
+
+    <div class="logo">
+        <h1>📦 Buyurtmalar</h1>
+        <span>Admin Panel</span>
+    </div>
+
+    <a href="/">
+        <button>🏠 Bosh sahifa</button>
+    </a>
+
+</div>
+
+{% if orders %}
+
+<div class="products">
+
+{% for order in orders %}
+
+<div class="card">
+
+    <h2>👤 {{ order[0] }}</h2>
+
+    <p><strong>📞 Telefon:</strong><br>{{ order[1] }}</p>
+
+    <p><strong>📍 Manzil:</strong><br>{{ order[2] }}</p>
+
+    <p><strong>🛒 Buyurtma:</strong><br>{{ order[3] }}</p>
+
+    <h2 style="color:#16a34a;">
+        💰 {{ order[4] }} so'm
+    </h2>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="banner">
+    <h2>📭 Hozircha buyurtmalar yo'q</h2>
+    <p>Yangi buyurtmalar shu yerda ko'rinadi.</p>
+</div>
+
+{% endif %}
+
+</body>
+</html>
+

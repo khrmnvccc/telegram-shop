@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirish</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="card" style="max-width:500px; margin:60px auto; padding:35px;">
+
+```
+<h1 style="text-align:center;">🔐 Hisobga kirish</h1>
+
+<form action="/login" method="POST">
+
+    <p>📱 Telefon raqami</p>
+
+    <input
+        type="text"
+        name="username"
+        placeholder="+998901234567"
+        required
+    >
+
+    <br><br>
+
+    <p>🔒 Parol</p>
+
+    <input
+        type="password"
+        name="password"
+        placeholder="Parolingiz"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        🚀 Kirish
+    </button>
+
+    
+{% if error %}
+
+<div class="error-box">
+
+    {{ error }}
+
+</div>
+
+{% endif %}
+
+
+</form>
+
+<br>
+
+<div style="text-align:center;">
+
+    <p>Hisobingiz yo'qmi?</p>
+
+    <a href="/register">
+        <button type="button">
+            📝 Ro'yxatdan o'tish
+        </button>
+    </a>
+
+</div>
+
+
+</div>
+
+</body>
+</html>

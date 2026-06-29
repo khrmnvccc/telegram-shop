@@ -16,15 +16,29 @@
 
 <div class="card">
 
-    <img src="{{ product[3] }}">
+   <img src="{{ product.image }}">
 
-    <h2>{{ product[1] }}</h2>
+    <h2>{{ product.name }}</h2>
 
-    <p>{{ product[2] }} so'm</p>
+    <p>{{ product.price }} so'm</p>
 
-<a href="/remove/{{ product[0] }}">
-    <button>❌ O'chirish</button>
-</a>
+    <div class="quantity">
+
+    <a href="/minus/{{ product.id }}">
+        <button>-</button>
+    </a>
+
+    <span>{{ product.count }} ta</span>
+
+    <a href="/plus/{{ product.id }}">
+        <button>+</button>
+    </a>
+
+</div>
+
+    <a href="/remove/{{ product.id }}"></a>
+        <button>❌ O'chirish</button>
+    </a>
 
 </div>
 
@@ -37,10 +51,13 @@
 </h2>
 
 <div style="text-align:center; margin-top:20px;">
+
     <a href="/checkout">
-    <button>📦 Buyurtma berish</button>
-</a>
+        <button>📦 Buyurtma berish</button>
+    </a>
+
 </div>
 
 </body>
 </html>
+

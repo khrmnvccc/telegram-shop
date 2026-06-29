@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ro'yxatdan o'tish</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="card" style="max-width:500px; margin:50px auto; padding:30px;">
+
+    <h1 style="text-align:center;">👤 Ro'yxatdan o'tish</h1>
+
+    <form action="/register" method="POST">
+
+        <p>Ism va familiya</p>
+        <input type="text" name="fullname" required>
+
+        <br><br>
+
+        <p>Telefon raqam</p>
+        <input type="text" name="phone" placeholder="+998901234567" required>
+
+        <br><br>
+
+        <p>Parol</p>
+        <input type="password" name="password" required>
+
+        <br><br>
+
+        <button type="submit">
+            ✅ Ro'yxatdan o'tish
+        </button>
+
+    </form>
+
+    <br>
+
+    <div style="text-align:center;">
+        <a href="/login">Hisobingiz bormi? Kirish</a>
+    </div>
+
+</div>
+
+</body>
+</html>
+

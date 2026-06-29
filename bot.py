@@ -1,5 +1,6 @@
 import telebot
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
+
 from config import TOKEN
 
 bot = telebot.TeleBot(TOKEN)
@@ -9,7 +10,10 @@ def start(message):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 
     keyboard.add(
-        KeyboardButton("🛍 Do'kon")
+        KeyboardButton(
+            text="🛍 Do'kon",
+            web_app=WebAppInfo("https://YOUR-DOMAIN.onrender.com")
+        )
     )
 
     bot.send_message(
@@ -17,21 +21,9 @@ def start(message):
         "Assalomu alaykum!\n\nDo'konimizga xush kelibsiz!",
         reply_markup=keyboard
     )
-
-@bot.message_handler(func=lambda message: message.text == "🛍 Do'kon")
-def shop(message):
-    bot.send_message(
-        message.chat.id,
-        "Mini App tez orada shu tugma orqali ochiladi."
-    )
-
-print("Bot ishga tushdi...")
-bot.infinity_polling()
-
-print("Bot ishga tushdi")
+print("🤖 Bot ishga tushdi...")
 
 try:
-    bot.infinity_polling()
+    bot.infinity_polling(skip_pending=True)
 except Exception as e:
     print(e)
-    

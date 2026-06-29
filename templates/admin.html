@@ -8,7 +8,19 @@
 
 <h1>🛠 Admin Panel</h1>
 
-<form action="/add_product" method="POST">
+<form action="/add_product" method="POST" enctype="multipart/form-data">
+
+<p>1-rasm (Asosiy)</p>
+<input type="file" name="image" accept="image/*" required>
+
+<p>2-rasm</p>
+<input type="file" name="image2" accept="image/*">
+
+<p>3-rasm</p>
+<input type="file" name="image3" accept="image/*">
+
+<p>4-rasm</p>
+<input type="file" name="image4" accept="image/*">
 
     <p>Mahsulot nomi</p>
     <input type="text" name="name" required>
@@ -16,16 +28,107 @@
     <p>Narxi</p>
     <input type="text" name="price" required>
 
-    <p>Rasm URL</p>
-    <input type="text" name="image" required>
+    <p>📄 Batafsil ma'lumot</p>
+    <textarea
+        name="description"
+        rows="6"
+        placeholder="Mahsulot haqida yozing..."
+    ></textarea>
+  
+    <br><br>
+
+<button type="submit">
+        ➕ Mahsulot qo'shish
+</button>
+
+</form>
+
+<hr>
+
+<h2>⚙️ Sayt sozlamalari</h2>
+
+<form action="/update_settings"
+      method="POST"
+      enctype="multipart/form-data">
+
+
+
+    <p>🛍 Sayt nomi</p>
+    <input
+        type="text"
+        name="site_name"
+        value="{{ settings[0] }}"
+        required
+    >
+
+    <p>🔥 Banner sarlavhasi</p>
+    <input
+        type="text"
+        name="banner_title"
+        value="{{ settings[1] }}"
+        required
+    >
+
+    <p>📢 Banner matni</p>
+    <textarea
+        name="banner_text"
+        rows="3"
+        required>{{ settings[2] }}</textarea>
+
+    <p>📞 Telefon</p>
+    <input
+        type="text"
+        name="phone"
+        value="{{ settings[3] }}"
+        required
+    >
+
+    <p>📍 Manzil</p>
+    <input
+        type="text"
+        name="address"
+        value="{{ settings[4] }}"
+        required
+    >
+
+    <p>🕒 Ish vaqti</p>
+    <input
+        type="text"
+        name="work_time"
+        value="{{ settings[5] }}"
+        required
+    >
+<p>🖼 Banner rasmi</p>
+
+<input
+    type="file"
+    name="banner_image"
+    accept="image/*">
+
+<br><br>
+
+<p>🛍 Logo rasmi</p>
+
+<input
+    type="file"
+    name="logo_image"
+    accept="image/*">
+
+<br><br>
 
     <br><br>
 
     <button type="submit">
-        ➕ Mahsulot qo'shish
+        💾 Sozlamalarni saqlash
     </button>
 
+  
+
+
+
 </form>
+
+
 
 </body>
 </html>

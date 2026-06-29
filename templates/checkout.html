@@ -11,18 +11,33 @@
 <form action="/finish_order" method="POST">
 
     <p>Ismingiz</p>
-    <input type="text" name="name" required>
+    <input
+        type="text"
+        name="name"
+        placeholder="Ismingizni kiriting"
+        required
+    >
 
     <p>Telefon raqamingiz</p>
-    <input type="text" name="phone" required>
+    <input
+        type="tel"
+        name="phone"
+        placeholder="+998 90 123 45 67"
+        required
+    >
 
     <p>Manzilingiz</p>
-    <textarea name="address" required></textarea>
+    <textarea
+        name="address"
+        placeholder="Manzilingizni kiriting..."
+        rows="4"
+        required
+    ></textarea>
 
     <br><br>
 
     <button type="submit">
-        ✅ Buyurtmani yuborish
+        🛒 Buyurtma berish
     </button>
 
 </form>

@@ -3,45 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do'kon</title>
+    <title>{{ settings[0] }}</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<h1>🛍️ Mening Do'konim</h1>
+<!-- HEADER -->
+<div class="header">
 
-<a href="/cart">
-    <button>🛒 Savatni ko'rish</button>
-</a>
+    <div class="logo">
 
+        {% if settings[7] %}
+        <img src="{{ settings[7] }}" class="logo-img">
+        {% endif %}
+
+        <div>
+            <h1>{{ settings[0] }}</h1>
+            <span>Online Shopping</span>
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+        <a href="/" class="cart-btn">
+            🏠 Bosh sahifa
+        </a>
+
+        <a href="/cart" class="cart-btn">
+            🛒 Savatcha
+            {% if cart_count > 0 %}
+                ({{ cart_count }})
+            {% endif %}
+        </a>
+
+        {% if session.get("admin") %}
+        <a href="/admin" class="cart-btn">
+            ⚙️ Admin
+        </a>
+        {% endif %}
+
+        <a href="/login" class="cart-btn">
+            👤 Kirish
+        </a>
+
+    </div>
+
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+
+    {% if settings[6] %}
+    <img src="{{ settings[6] }}" class="banner-img">
+    {% endif %}
+
+    <h2>{{ settings[1] }}</h2>
+
+    <p>{{ settings[2] }}</p>
+
+</div>
+
+<!-- SEARCH -->
+<div class="search-box">
+
+    <form action="/" method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="🔍 Mahsulot qidirish...">
+
+        <button type="submit">
+            Qidirish
+        </button>
+
+    </form>
+
+</div>
+
+<!-- PRODUCTS -->
 <div class="products">
+
 {% for product in products %}
 
 <div class="card">
+
     <img src="{{ product[3] }}">
+
     <h2>{{ product[1] }}</h2>
+
     <p>{{ product[2] }} so'm</p>
 
-<a href="/add/{{ loop.index }}">
-    <button>Savatga qo'shish</button>
-</a>
+    <a href="/product/{{ product[0] }}">
+        <button>👁 Batafsil</button>
+    </a>
 
-<br><br>
+    <a href="/add/{{ product[0] }}">
+        <button>🛒 Savatga qo'shish</button>
+    </a>
 
-<a href="/edit/{{ product[0] }}">
-    <button>✏️ Tahrirlash</button>
-</a>
+    {% if session.get("admin") %}
 
-<br><br>
+    <a href="/edit/{{ product[0] }}">
+        <button>✏️ Tahrirlash</button>
+    </a>
 
-<a href="/delete/{{ product[0] }}">
-    <button>🗑 O'chirish</button>
-</a>
-    
+    <a href="/delete/{{ product[0] }}">
+        <button>🗑 O'chirish</button>
+    </a>
+
+    {% endif %}
+
 </div>
 
 {% endfor %}
+
 </div>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <h3>🛍 {{ settings[0] }}</h3>
+
+    <p>📞 {{ settings[3] }}</p>
+
+    <p>📍 {{ settings[4] }}</p>
+
+    <p>🕒 {{ settings[5] }}</p>
+
+    <hr>
+
+    <small>© 2025 {{ settings[0] }}. Barcha huquqlar himoyalangan.</small>
+
+</footer>
 
 </body>
 </html>
