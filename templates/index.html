@@ -1,119 +1,262 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ settings[0] }}</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{ settings[0] }}</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
+<!-- SPLASH -->
+
+<div id="splash">
+
+{% if settings[7] %}
+
+<img src="{{ settings[7] }}" class="splash-logo">
+
+{% else %}
+
+<h1>{{ settings[0] }}</h1>
+
+{% endif %}
+
+</div>
+
 <!-- HEADER -->
-<div class="header">
 
-    <div class="logo">
+<header class="header">
 
-        {% if settings[7] %}
-        <img src="{{ settings[7] }}" class="logo-img">
-        {% endif %}
+<div class="logo">
 
-        <div>
-            <h1>{{ settings[0] }}</h1>
-            <span>Online Shopping</span>
-        </div>
+{% if settings[7] %}
 
-    </div>
+<img src="{{ settings[7] }}" class="logo-img">
 
-    <div class="header-right">
+{% endif %}
 
-        <a href="/" class="cart-btn">
-            🏠 Bosh sahifa
-        </a>
+<div>
 
-        <a href="/cart" class="cart-btn">
-            🛒 Savatcha
-            {% if cart_count > 0 %}
-                ({{ cart_count }})
-            {% endif %}
-        </a>
+<h1>{{ settings[0] }}</h1>
 
-        {% if session.get("admin") %}
-        <a href="/admin" class="cart-btn">
-            ⚙️ Admin
-        </a>
-        {% endif %}
-
-        <a href="/login" class="cart-btn">
-            👤 Kirish
-        </a>
-
-    </div>
+<span>Premium Store</span>
 
 </div>
 
-<!-- BANNER -->
-<div class="banner">
+</div>
 
-    {% if settings[6] %}
-    <img src="{{ settings[6] }}" class="banner-img">
-    {% endif %}
+<div class="header-right">
 
-    <h2>{{ settings[1] }}</h2>
+<a href="/" class="nav-icon">
 
-    <p>{{ settings[2] }}</p>
+🏠
+
+</a>
+
+<a href="/cart" class="nav-icon">
+
+🛒
+
+{% if cart_count>0 %}
+
+<div class="count">
+
+{{ cart_count }}
 
 </div>
+
+{% endif %}
+
+</a>
+
+{% if session.get("admin") %}
+
+<a href="/admin" class="nav-icon">
+
+⚙️
+
+</a>
+
+{% endif %}
+
+<button
+id="theme-btn"
+class="nav-icon">
+
+🌙
+
+</button>
+
+<a href="/login" class="nav-icon">
+
+👤
+
+</a>
+
+</div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+{% if settings[6] %}
+
+<img
+src="{{ settings[6] }}"
+class="hero-image">
+
+{% endif %}
+
+<div class="hero-content">
+
+<h1>
+
+{{ settings[1] }}
+
+</h1>
+
+<p>
+
+{{ settings[2] }}
+
+</p>
+
+</div>
+
+</section>
 
 <!-- SEARCH -->
-<div class="search-box">
 
-    <form action="/" method="GET">
+<section class="search-box">
 
-        <input
-            type="text"
-            name="search"
-            placeholder="🔍 Mahsulot qidirish...">
+<form action="/" method="GET">
 
-        <button type="submit">
-            Qidirish
-        </button>
+<div class="search-glass">
 
-    </form>
+<div class="search-icon">
+
+🔍
 
 </div>
 
+<input
+type="text"
+name="search"
+placeholder="Mahsulot qidirish...">
+
+<button>
+
+Qidirish
+
+</button>
+
+</div>
+
+</form>
+
+</section>
+
 <!-- PRODUCTS -->
+
 <div class="products">
 
 {% for product in products %}
 
 <div class="card">
 
-    <img src="{{ product[3] }}">
+    <div class="card-image">
 
-    <h2>{{ product[1] }}</h2>
+        <img src="{{ product[3] }}" alt="{{ product[1] }}">
 
-    <p>{{ product[2] }} so'm</p>
+        <div class="favorite">
+            🤍
+        </div>
 
-    <a href="/product/{{ product[0] }}">
-        <button>👁 Batafsil</button>
-    </a>
+    </div>
 
-    <a href="/add/{{ product[0] }}">
-        <button>🛒 Savatga qo'shish</button>
-    </a>
+    <div class="card-body">
 
-    {% if session.get("admin") %}
+        <div class="rating">
 
-    <a href="/edit/{{ product[0] }}">
-        <button>✏️ Tahrirlash</button>
-    </a>
+            ⭐ 4.9
 
-    <a href="/delete/{{ product[0] }}">
-        <button>🗑 O'chirish</button>
-    </a>
+            <span>(120+ sharh)</span>
 
-    {% endif %}
+        </div>
+
+        <h2>
+
+            {{ product[1] }}
+
+        </h2>
+
+        <div class="price">
+
+            {{ product[2] }} so'm
+
+        </div>
+
+        <div class="delivery">
+
+            🚚 Bugun yetkazib beriladi
+
+        </div>
+
+        <a href="/product/{{ product[0] }}">
+
+            <button class="detail-btn">
+
+                Batafsil
+
+            </button>
+
+        </a>
+
+        <a href="/add/{{ product[0] }}">
+
+            <button class="buy-btn">
+
+                🛒 Savatga qo'shish
+
+            </button>
+
+        </a>
+
+        {% if session.get("admin") %}
+
+        <a href="/edit/{{ product[0] }}">
+
+            <button class="admin-btn">
+
+                ✏️ Tahrirlash
+
+            </button>
+
+        </a>
+
+        <a href="/delete/{{ product[0] }}">
+
+            <button class="delete-btn">
+
+                🗑 O'chirish
+
+            </button>
+
+        </a>
+
+        {% endif %}
+
+    </div>
 
 </div>
 
@@ -122,9 +265,10 @@
 </div>
 
 <!-- FOOTER -->
+
 <footer class="footer">
 
-    <h3>🛍 {{ settings[0] }}</h3>
+    <h3>{{ settings[0] }}</h3>
 
     <p>📞 {{ settings[3] }}</p>
 
@@ -134,9 +278,97 @@
 
     <hr>
 
-    <small>© 2025 {{ settings[0] }}. Barcha huquqlar himoyalangan.</small>
+    <small>
+        © 2026 {{ settings[0] }}. Barcha huquqlar himoyalangan.
+    </small>
 
 </footer>
+
+<!-- BOTTOM NAV (iPhone Style) -->
+
+<nav class="bottom-nav">
+
+    <a href="/" class="bottom-item active">
+
+        <span>🏠</span>
+
+        <small>Home</small>
+
+    </a>
+
+    <a href="/" class="bottom-item">
+
+        <span>🔍</span>
+
+        <small>Search</small>
+
+    </a>
+
+    <a href="/cart" class="bottom-item">
+
+        <span>🛒</span>
+
+        {% if cart_count>0 %}
+        <b>{{ cart_count }}</b>
+        {% endif %}
+
+        <small>Cart</small>
+
+    </a>
+
+    <a href="/login" class="bottom-item">
+
+        <span>👤</span>
+
+        <small>Profile</small>
+
+    </a>
+
+</nav>
+
+<script>
+
+const btn = document.getElementById("theme-btn");
+
+if(localStorage.getItem("theme")=="dark"){
+
+    document.body.classList.add("dark");
+
+    btn.innerHTML="☀️";
+
+}
+
+btn.onclick=function(){
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+
+        localStorage.setItem("theme","dark");
+
+        btn.innerHTML="☀️";
+
+    }else{
+
+        localStorage.setItem("theme","light");
+
+        btn.innerHTML="🌙";
+
+    }
+
+}
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document.getElementById("splash").classList.add("hide");
+
+    },900);
+
+});
+
+</script>
 
 </body>
 </html>

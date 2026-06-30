@@ -230,35 +230,31 @@ def update_settings():
     banner_image = request.files["banner_image"]
     logo_image = request.files["logo_image"]
 
-    banner_path = None
-    logo_path = None
-
-    if banner_image.filename != "":
-        banner_name = secure_filename(banner_image.filename)
-
-        banner_image.save(
-            os.path.join(
-                app.config["UPLOAD_FOLDER"],
-                banner_name
-            )
-        )
-
-        banner_path = "/static/uploads/" + banner_name
-
-    if logo_image.filename != "":
-        logo_name = secure_filename(logo_image.filename)
-
-        logo_image.save(
-            os.path.join(
-                app.config["UPLOAD_FOLDER"],
-                logo_name
-            )
-        )
-
-        logo_path = "/static/uploads/" + logo_name
-
     db = sqlite3.connect("database.db")
     cursor = db.cursor()
+
+    # Eski rasmlarni olish
+    cursor.execute("SELECT banner_image, logo_image FROM settings WHERE id=1")
+    old = cursor.fetchone()
+
+    banner_path = old[0]
+    logo_path = old[1]
+
+    # Yangi banner yuklangan bo'lsa
+    if banner_image.filename != "":
+        banner_name = secure_filename(banner_image.filename)
+        banner_image.save(
+            os.path.join(app.config["UPLOAD_FOLDER"], banner_name)
+        )
+        banner_path = "/static/uploads/" + banner_name
+
+    # Yangi logo yuklangan bo'lsa
+    if logo_image.filename != "":
+        logo_name = secure_filename(logo_image.filename)
+        logo_image.save(
+            os.path.join(app.config["UPLOAD_FOLDER"], logo_name)
+        )
+        logo_path = "/static/uploads/" + logo_name
 
     cursor.execute("""
         UPDATE settings
@@ -283,11 +279,12 @@ def update_settings():
         logo_path
     ))
 
+    print("UPDATE SETTINGS ISHLADI")
+
     db.commit()
     db.close()
 
     return redirect("/admin")
-
 
   
 

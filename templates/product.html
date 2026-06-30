@@ -1,133 +1,125 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ product[1] }}</title>
 
     <link rel="stylesheet" href="/static/style.css">
-
-    <style>
-        .card{
-            max-width:600px;
-            margin:40px auto;
-            background:#fff;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0 5px 20px rgba(0,0,0,.1);
-        }
-
-        #main-image{
-            width:100%;
-            height:400px;
-            object-fit:cover;
-            border-radius:10px;
-        }
-
-        .gallery{
-            display:flex;
-            gap:10px;
-            margin-top:15px;
-            flex-wrap:wrap;
-        }
-
-        .gallery img{
-            width:80px;
-            height:80px;
-            object-fit:cover;
-            border-radius:8px;
-            cursor:pointer;
-            border:2px solid #ddd;
-        }
-
-        h2{
-            margin-top:20px;
-        }
-
-        .price{
-            color:#27ae60;
-            font-size:26px;
-            font-weight:bold;
-        }
-
-        .desc{
-            margin-top:20px;
-            line-height:1.7;
-            color:#555;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            margin-top:10px;
-            font-size:17px;
-        }
-
-        .buy{
-            background:#2ecc71;
-            color:white;
-        }
-
-        .back{
-            background:#ddd;
-        }
-    </style>
-
 </head>
+
 <body>
 
-<div class="card">
+<div class="product-page">
 
-    <img id="main-image" src="{{ product[3] }}">
+<div class="product-card">
 
-    <div class="gallery">
+    <div>
 
-        {% if product[3] %}
-        <img src="{{ product[3] }}" onclick="changeImage(this.src)">
-        {% endif %}
+        <img
+            id="main-image"
+            src="{{ product[3] }}"
+            class="product-image">
 
-        {% if product[4] %}
-        <img src="{{ product[4] }}" onclick="changeImage(this.src)">
-        {% endif %}
+        <div class="gallery">
 
-        {% if product[5] %}
-        <img src="{{ product[5] }}" onclick="changeImage(this.src)">
-        {% endif %}
+            {% if product[3] %}
+            <img src="{{ product[3] }}" onclick="changeImage(this.src)">
+            {% endif %}
 
-        {% if product[6] %}
-        <img src="{{ product[6] }}" onclick="changeImage(this.src)">
-        {% endif %}
+            {% if product[4] %}
+            <img src="{{ product[4] }}" onclick="changeImage(this.src)">
+            {% endif %}
+
+            {% if product[5] %}
+            <img src="{{ product[5] }}" onclick="changeImage(this.src)">
+            {% endif %}
+
+            {% if product[6] %}
+            <img src="{{ product[6] }}" onclick="changeImage(this.src)">
+            {% endif %}
+
+        </div>
 
     </div>
 
-    <h2>{{ product[1] }}</h2>
+    <div class="product-info">
 
-    <p class="price">{{ product[2] }} so'm</p>
+        <div class="rating">
 
-    <hr>
+            ⭐ 4.9
 
-    <h3>📄 Batafsil</h3>
+            <span>Premium mahsulot</span>
 
-    <div class="desc">
-        {{ product[7] }}
+        </div>
+
+        <h2 class="product-title">
+
+            {{ product[1] }}
+
+        </h2>
+
+        <div class="product-price">
+
+            {{ product[2] }} so'm
+
+        </div>
+
+        <div class="delivery">
+
+            🚚 Bugun yetkazib beriladi
+
+        </div>
+
+        <div class="product-desc">
+
+            <h3>📄 Batafsil ma'lumot</h3>
+
+            <br>
+
+            {{ product[7] }}
+
+        </div>
+
+        <div class="product-buttons">
+
+            <a href="/add/{{ product[0] }}">
+
+                <button class="buy-btn">
+
+                    🛒 Savatga qo'shish
+
+                </button>
+
+            </a>
+
+            <a href="/">
+
+                <button class="detail-btn">
+
+                    ⬅ Bosh sahifaga qaytish
+
+                </button>
+
+            </a>
+
+        </div>
+
     </div>
 
-    <a href="/add/{{ product[0] }}">
-        <button class="buy">🛒 Savatga qo'shish</button>
-    </a>
-
-    <a href="/">
-        <button class="back">⬅ Orqaga</button>
-    </a>
+</div>
 
 </div>
 
 <script>
+
 function changeImage(src){
+
     document.getElementById("main-image").src = src;
+
 }
+
 </script>
 
 </body>

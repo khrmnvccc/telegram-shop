@@ -1,134 +1,155 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Panel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Panel</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
 <body>
 
-<h1>🛠 Admin Panel</h1>
+<div class="login-page">
+
+<div class="login-card" style="max-width:900px;">
+
+<h1 style="text-align:center;margin-bottom:30px;">
+🛠 Admin Panel
+</h1>
+
+<h2>➕ Mahsulot qo'shish</h2>
 
 <form action="/add_product" method="POST" enctype="multipart/form-data">
 
-<p>1-rasm (Asosiy)</p>
+<label>1-rasm (Asosiy)</label>
 <input type="file" name="image" accept="image/*" required>
 
-<p>2-rasm</p>
+<label>2-rasm</label>
 <input type="file" name="image2" accept="image/*">
 
-<p>3-rasm</p>
+<label>3-rasm</label>
 <input type="file" name="image3" accept="image/*">
 
-<p>4-rasm</p>
+<label>4-rasm</label>
 <input type="file" name="image4" accept="image/*">
 
-    <p>Mahsulot nomi</p>
-    <input type="text" name="name" required>
+<label>Mahsulot nomi</label>
+<input type="text" name="name" required>
 
-    <p>Narxi</p>
-    <input type="text" name="price" required>
+<label>Narxi</label>
+<input type="text" name="price" required>
 
-    <p>📄 Batafsil ma'lumot</p>
-    <textarea
-        name="description"
-        rows="6"
-        placeholder="Mahsulot haqida yozing..."
-    ></textarea>
-  
-    <br><br>
+<label>Batafsil ma'lumot</label>
 
-<button type="submit">
-        ➕ Mahsulot qo'shish
+<textarea
+name="description"
+rows="6"
+placeholder="Mahsulot haqida yozing..."
+></textarea>
+
+<button type="submit" class="buy-btn">
+➕ Mahsulot qo'shish
 </button>
 
 </form>
 
-<hr>
+<hr style="margin:40px 0;">
 
 <h2>⚙️ Sayt sozlamalari</h2>
 
-<form action="/update_settings"
-      method="POST"
-      enctype="multipart/form-data">
+<form
+action="/update_settings"
+method="POST"
+enctype="multipart/form-data"
+>
 
-
-
-    <p>🛍 Sayt nomi</p>
-    <input
-        type="text"
-        name="site_name"
-        value="{{ settings[0] }}"
-        required
-    >
-
-    <p>🔥 Banner sarlavhasi</p>
-    <input
-        type="text"
-        name="banner_title"
-        value="{{ settings[1] }}"
-        required
-    >
-
-    <p>📢 Banner matni</p>
-    <textarea
-        name="banner_text"
-        rows="3"
-        required>{{ settings[2] }}</textarea>
-
-    <p>📞 Telefon</p>
-    <input
-        type="text"
-        name="phone"
-        value="{{ settings[3] }}"
-        required
-    >
-
-    <p>📍 Manzil</p>
-    <input
-        type="text"
-        name="address"
-        value="{{ settings[4] }}"
-        required
-    >
-
-    <p>🕒 Ish vaqti</p>
-    <input
-        type="text"
-        name="work_time"
-        value="{{ settings[5] }}"
-        required
-    >
-<p>🖼 Banner rasmi</p>
+<label>Sayt nomi</label>
 
 <input
-    type="file"
-    name="banner_image"
-    accept="image/*">
+type="text"
+name="site_name"
+value="{{ settings[0] }}"
+required
+>
 
-<br><br>
-
-<p>🛍 Logo rasmi</p>
+<label>Banner sarlavhasi</label>
 
 <input
-    type="file"
-    name="logo_image"
-    accept="image/*">
+type="text"
+name="banner_title"
+value="{{ settings[1] }}"
+required
+>
 
-<br><br>
+<label>Banner matni</label>
 
-    <br><br>
+<textarea
+name="banner_text"
+rows="4"
+required>{{ settings[2] }}</textarea>
 
-    <button type="submit">
-        💾 Sozlamalarni saqlash
-    </button>
+<label>Telefon</label>
 
-  
+<input
+type="text"
+name="phone"
+value="{{ settings[3] }}"
+required
+>
 
+<label>Manzil</label>
 
+<input
+type="text"
+name="address"
+value="{{ settings[4] }}"
+required
+>
+
+<label>Ish vaqti</label>
+
+<input
+type="text"
+name="work_time"
+value="{{ settings[5] }}"
+required
+>
+
+<label>Banner rasmi</label>
+
+<input
+type="file"
+name="banner_image"
+accept="image/*"
+>
+
+<label>Logo rasmi</label>
+
+<input
+type="file"
+name="logo_image"
+accept="image/*"
+>
+
+<button type="submit" class="buy-btn">
+💾 Sozlamalarni saqlash
+</button>
 
 </form>
 
+<br>
 
+<a href="/">
+<button class="detail-btn">
+⬅ Bosh sahifaga qaytish
+</button>
+</a>
+
+</div>
+
+</div>
 
 </body>
 </html>

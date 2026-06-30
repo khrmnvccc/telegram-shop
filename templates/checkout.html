@@ -1,46 +1,95 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Buyurtma</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Buyurtma berish</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-<h1>📦 Buyurtma berish</h1>
+<div class="login-page">
+
+<div class="login-card">
+
+<div style="text-align:center;margin-bottom:30px;">
+
+<h1 style="font-size:34px;">
+📦 Buyurtma berish
+</h1>
+
+<p style="color:#777;margin-top:10px;">
+Buyurtmangizni tasdiqlash uchun ma'lumotlarni kiriting
+</p>
+
+</div>
 
 <form action="/finish_order" method="POST">
 
-    <p>Ismingiz</p>
-    <input
-        type="text"
-        name="name"
-        placeholder="Ismingizni kiriting"
-        required
-    >
+<label>👤 Ismingiz</label>
 
-    <p>Telefon raqamingiz</p>
-    <input
-        type="tel"
-        name="phone"
-        placeholder="+998 90 123 45 67"
-        required
-    >
+<input
+type="text"
+name="name"
+placeholder="Ismingizni kiriting"
+required
+>
 
-    <p>Manzilingiz</p>
-    <textarea
-        name="address"
-        placeholder="Manzilingizni kiriting..."
-        rows="4"
-        required
-    ></textarea>
+<label>📱 Telefon raqamingiz</label>
 
-    <br><br>
+<input
+type="tel"
+name="phone"
+placeholder="+998 90 123 45 67"
+required
+>
 
-    <button type="submit">
-        🛒 Buyurtma berish
-    </button>
+<label>📍 Manzilingiz</label>
+
+<textarea
+name="address"
+rows="5"
+placeholder="Manzilingizni kiriting..."
+required
+></textarea>
+
+<button
+type="submit"
+class="buy-btn">
+
+🛒 Buyurtmani yuborish
+
+</button>
 
 </form>
 
+<div style="text-align:center;margin-top:25px;">
+
+<a href="/cart">
+
+<button
+type="button"
+class="detail-btn">
+
+⬅ Savatchaga qaytish
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
+
 </html>

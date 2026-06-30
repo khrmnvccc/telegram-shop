@@ -1,77 +1,128 @@
 <!DOCTYPE html>
-
 <html lang="uz">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kirish</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kirish</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-<div class="card" style="max-width:500px; margin:60px auto; padding:35px;">
+<div class="product-page">
 
-```
-<h1 style="text-align:center;">🔐 Hisobga kirish</h1>
+<div class="card" style="max-width:450px;margin:70px auto;">
+
+<div class="card-body">
+
+<div style="text-align:center;margin-bottom:30px;">
+
+<h1 style="font-size:34px;">
+
+👋 Xush kelibsiz
+
+</h1>
+
+<p style="color:#777;margin-top:10px;">
+
+Hisobingizga kiring
+
+</p>
+
+</div>
 
 <form action="/login" method="POST">
 
-    <p>📱 Telefon raqami</p>
+<div style="margin-bottom:20px;">
 
-    <input
-        type="text"
-        name="username"
-        placeholder="+998901234567"
-        required
-    >
+<label>
 
-    <br><br>
+📱 Telefon raqami
 
-    <p>🔒 Parol</p>
+</label>
 
-    <input
-        type="password"
-        name="password"
-        placeholder="Parolingiz"
-        required
-    >
+<input
+type="text"
+name="username"
+placeholder="+998901234567"
+required
+style="width:100%;margin-top:10px;padding:15px;border-radius:15px;border:1px solid #ddd;font-size:16px;">
 
-    <br><br>
+</div>
 
-    <button type="submit">
-        🚀 Kirish
-    </button>
+<div style="margin-bottom:25px;">
 
-    
+<label>
+
+🔒 Parol
+
+</label>
+
+<input
+type="password"
+name="password"
+placeholder="Parolingiz"
+required
+style="width:100%;margin-top:10px;padding:15px;border-radius:15px;border:1px solid #ddd;font-size:16px;">
+
+</div>
+
 {% if error %}
 
 <div class="error-box">
 
-    {{ error }}
+{{ error }}
 
 </div>
 
 {% endif %}
 
+<button
+type="submit"
+class="buy-btn">
+
+🚀 Kirish
+
+</button>
 
 </form>
 
+<div style="text-align:center;margin-top:30px;">
+
+<p style="color:#777;">
+
+Hisobingiz yo'qmi?
+
+</p>
+
 <br>
 
-<div style="text-align:center;">
+<a href="/register">
 
-    <p>Hisobingiz yo'qmi?</p>
+<button
+type="button"
+class="detail-btn">
 
-    <a href="/register">
-        <button type="button">
-            📝 Ro'yxatdan o'tish
-        </button>
-    </a>
+📝 Ro'yxatdan o'tish
+
+</button>
+
+</a>
 
 </div>
 
+</div>
+
+</div>
 
 </div>
 
 </body>
+
 </html>

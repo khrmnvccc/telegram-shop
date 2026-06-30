@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS products(
     image TEXT,
     image2 TEXT,
     image3 TEXT,
-    image4 TEXT
+    image4 TEXT,
     description TEXT
 )
 """)

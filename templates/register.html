@@ -1,48 +1,101 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ro'yxatdan o'tish</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ro'yxatdan o'tish</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-<div class="card" style="max-width:500px; margin:50px auto; padding:30px;">
+<div class="login-page">
 
-    <h1 style="text-align:center;">👤 Ro'yxatdan o'tish</h1>
+<div class="login-card">
 
-    <form action="/register" method="POST">
+<div style="text-align:center;margin-bottom:30px;">
 
-        <p>Ism va familiya</p>
-        <input type="text" name="fullname" required>
+<h1 style="font-size:34px;">
+👤 Ro'yxatdan o'tish
+</h1>
 
-        <br><br>
+<p style="color:#777;margin-top:10px;">
+Yangi hisob yarating
+</p>
 
-        <p>Telefon raqam</p>
-        <input type="text" name="phone" placeholder="+998901234567" required>
+</div>
 
-        <br><br>
+<form action="/register" method="POST">
 
-        <p>Parol</p>
-        <input type="password" name="password" required>
+<label>👤 Ism va familiya</label>
 
-        <br><br>
+<input
+type="text"
+name="fullname"
+placeholder="Ism va familiyangiz"
+required
+>
 
-        <button type="submit">
-            ✅ Ro'yxatdan o'tish
-        </button>
+<label>📱 Telefon raqami</label>
 
-    </form>
+<input
+type="text"
+name="phone"
+placeholder="+998901234567"
+required
+>
 
-    <br>
+<label>🔒 Parol</label>
 
-    <div style="text-align:center;">
-        <a href="/login">Hisobingiz bormi? Kirish</a>
-    </div>
+<input
+type="password"
+name="password"
+placeholder="Parol kiriting"
+required
+>
+
+<button
+type="submit"
+class="buy-btn">
+
+✅ Ro'yxatdan o'tish
+
+</button>
+
+</form>
+
+<div style="text-align:center;margin-top:30px;">
+
+<p style="color:#777;">
+Hisobingiz bormi?
+</p>
+
+<br>
+
+<a href="/login">
+
+<button
+type="button"
+class="detail-btn">
+
+🔐 Kirish
+
+</button>
+
+</a>
+
+</div>
+
+</div>
 
 </div>
 
 </body>
-</html>
 
+</html>

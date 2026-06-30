@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savat</title>
+
+    <title>Savatcha</title>
+
     <link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-<h1>🛒 Savatim</h1>
+<header class="header">
+
+    <div class="logo">
+
+        <h1>Savatcha</h1>
+
+        <span>{{ products|length }} ta mahsulot</span>
+
+    </div>
+
+    <div class="header-right">
+
+        <a href="/" class="nav-icon">🏠</a>
+
+        <a href="/login" class="nav-icon">👤</a>
+
+    </div>
+
+</header>
+
+<section class="product-page">
 
 <div class="products">
 
@@ -16,29 +43,65 @@
 
 <div class="card">
 
-   <img src="{{ product.image }}">
+    <div class="card-image">
 
-    <h2>{{ product.name }}</h2>
+        <img src="{{ product.image }}">
 
-    <p>{{ product.price }} so'm</p>
+    </div>
 
-    <div class="quantity">
+    <div class="card-body">
 
-    <a href="/minus/{{ product.id }}">
-        <button>-</button>
-    </a>
+        <h2>
 
-    <span>{{ product.count }} ta</span>
+            {{ product.name }}
 
-    <a href="/plus/{{ product.id }}">
-        <button>+</button>
-    </a>
+        </h2>
 
-</div>
+        <div class="price">
 
-    <a href="/remove/{{ product.id }}"></a>
-        <button>❌ O'chirish</button>
-    </a>
+            {{ product.price }} so'm
+
+        </div>
+
+        <div class="delivery">
+
+            🚚 Tayyor yetkazib berish
+
+        </div>
+
+        <div class="quantity">
+
+            <a href="/minus/{{ product.id }}">
+
+                <button>-</button>
+
+            </a>
+
+            <span>
+
+                {{ product.count }} ta
+
+            </span>
+
+            <a href="/plus/{{ product.id }}">
+
+                <button>+</button>
+
+            </a>
+
+        </div>
+
+        <a href="/remove/{{ product.id }}">
+
+            <button class="delete-btn">
+
+                🗑 O'chirish
+
+            </button>
+
+        </a>
+
+    </div>
 
 </div>
 
@@ -46,18 +109,66 @@
 
 </div>
 
-<h2 style="text-align:center;">
-    💰 Jami: {{ total }} so'm
+<div style="max-width:500px;margin:40px auto;">
+
+<div class="card-body" style="text-align:center;">
+
+<h2>
+
+💰 Jami
+
 </h2>
 
-<div style="text-align:center; margin-top:20px;">
+<div class="price">
 
-    <a href="/checkout">
-        <button>📦 Buyurtma berish</button>
-    </a>
+{{ total }} so'm
 
 </div>
 
-</body>
-</html>
+<a href="/checkout">
 
+<button class="buy-btn">
+
+📦 Buyurtma berish
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<nav class="bottom-nav">
+
+<a href="/" class="bottom-item">
+
+<span>🏠</span>
+
+<small>Home</small>
+
+</a>
+
+<a href="/cart" class="bottom-item active">
+
+<span>🛒</span>
+
+<small>Savat</small>
+
+</a>
+
+<a href="/login" class="bottom-item">
+
+<span>👤</span>
+
+<small>Profil</small>
+
+</a>
+
+</nav>
+
+</body>
+
+</html>

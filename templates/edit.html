@@ -1,47 +1,98 @@
-```html
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Mahsulotni tahrirlash</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mahsulotni tahrirlash</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
 
-<h1>✏️ Mahsulotni tahrirlash</h1>
+<div class="login-page">
 
-<form action="/update/{{ product[0] }}" method="POST" enctype="multipart/form-data">
+<div class="login-card">
 
-    <p>Mahsulot nomi</p>
-    <input
-        type="text"
-        name="name"
-        value="{{ product[1] }}"
-        required
-    >
+<div style="text-align:center;margin-bottom:30px;">
 
-    <p>Narxi</p>
-    <input
-        type="text"
-        name="price"
-        value="{{ product[2] }}"
-        required
-    >
+<h1 style="font-size:34px;">
+✏️ Mahsulotni tahrirlash
+</h1>
 
-    <p>Yangi rasm (ixtiyoriy)</p>
-    <input
-        type="file"
-        name="image"
-        accept="image/*"
-    >
+<p style="color:#777;margin-top:10px;">
+Mahsulot ma'lumotlarini yangilang
+</p>
 
-    <br><br>
+</div>
 
-    <button type="submit">
-        💾 Saqlash
-    </button>
+<form
+action="/update/{{ product[0] }}"
+method="POST"
+enctype="multipart/form-data"
+>
+
+<label>📦 Mahsulot nomi</label>
+
+<input
+type="text"
+name="name"
+value="{{ product[1] }}"
+required
+>
+
+<label>💰 Narxi</label>
+
+<input
+type="text"
+name="price"
+value="{{ product[2] }}"
+required
+>
+
+<label>🖼 Yangi rasm (ixtiyoriy)</label>
+
+<input
+type="file"
+name="image"
+accept="image/*"
+>
+
+<button
+type="submit"
+class="buy-btn">
+
+💾 O'zgarishlarni saqlash
+
+</button>
 
 </form>
 
+<div style="text-align:center;margin-top:25px;">
+
+<a href="/admin">
+
+<button
+type="button"
+class="detail-btn">
+
+⬅ Admin panelga qaytish
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
+
 </html>
-```
