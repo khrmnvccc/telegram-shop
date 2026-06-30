@@ -19,21 +19,31 @@
 
 <div class="login-card">
 
-<div style="text-align:center;margin-bottom:30px;">
+<div class="login-logo">
 
-<h1 style="font-size:34px;">
-👤 Ro'yxatdan o'tish
-</h1>
-
-<p style="color:#777;margin-top:10px;">
-Yangi hisob yarating
-</p>
+👤
 
 </div>
 
+<h1>
+
+Hisob yaratish
+
+</h1>
+
+<p class="login-subtitle">
+
+Asia Box oilasiga qo'shiling
+
+</p>
+
 <form action="/register" method="POST">
 
-<label>👤 Ism va familiya</label>
+<label>
+
+👤 Ism va familiya
+
+</label>
 
 <input
 type="text"
@@ -42,7 +52,11 @@ placeholder="Ism va familiyangiz"
 required
 >
 
-<label>📱 Telefon raqami</label>
+<label>
+
+📱 Telefon raqami
+
+</label>
 
 <input
 type="text"
@@ -51,14 +65,41 @@ placeholder="+998901234567"
 required
 >
 
-<label>🔒 Parol</label>
+<label>
+
+🔒 Parol
+
+</label>
+
+<div class="password-box">
 
 <input
 type="password"
+id="password"
 name="password"
 placeholder="Parol kiriting"
 required
 >
+
+<span
+class="toggle-password"
+onclick="togglePassword()">
+
+👁️
+
+</span>
+
+</div>
+
+{% if error %}
+
+<div class="error-box">
+
+{{ error }}
+
+</div>
+
+{% endif %}
 
 <button
 type="submit"
@@ -70,10 +111,12 @@ class="buy-btn">
 
 </form>
 
-<div style="text-align:center;margin-top:30px;">
+<div class="login-bottom">
 
-<p style="color:#777;">
+<p>
+
 Hisobingiz bormi?
+
 </p>
 
 <br>
@@ -95,6 +138,26 @@ class="detail-btn">
 </div>
 
 </div>
+
+<script>
+
+function togglePassword(){
+
+const password=document.getElementById("password");
+
+if(password.type==="password"){
+
+password.type="text";
+
+}else{
+
+password.type="password";
+
+}
+
+}
+
+</script>
 
 </body>
 

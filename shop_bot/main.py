@@ -2,23 +2,57 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, KeyboardButton, ReplyKeyboardMarkup
 from aiogram.fsm.context import FSMContext
-from states import AddProduct
 
-from config import TOKEN
-from keyboards import menu
+from shop_bot.states import AddProduct
+from shop_bot.keyboards import menu
+from shop_bot.config import TOKEN, ADMIN_ID
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
+phone_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(
+                text="📱 Telefon raqamni yuborish",
+                request_contact=True
+            )
+        ]
+    ],
+    resize_keyboard=True
+)
+
 @dp.message(Command("start"))
 async def start(message: Message):
+
     await message.answer(
-        "🇺🇿 Assalomu alaykum!\n\n"
-"🛍 Asia Box botiga xush kelibsiz!\n\n"
-"Pastdagi menyudan kerakli bo'limni tanlang.",
-        reply_markup=menu
+        "Assalomu alaykum!\n\n"
+        "Davom etish uchun telefon raqamingizni yuboring.",
+        reply_markup=phone_keyboard
+    )
+
+@dp.message(lambda message: message.contact)
+async def save_phone(message: Message):
+
+    phone = message.contact.phone_number
+    chat_id = str(message.chat.id)
+
+    db = sqlite3.connect("database.db")
+    cursor = db.cursor()
+
+    cursor.execute("""
+        INSERT OR REPLACE INTO telegram_users(phone, chat_id)
+        VALUES (?, ?)
+    """, (phone, chat_id))
+
+    db.commit()
+    db.close()
+
+    await message.answer(
+        "✅ Telefon raqamingiz saqlandi.\n"
+        "Endi saytda ro'yxatdan o'tishingiz mumkin."
     )
 
 @dp.message(Command("add"))
@@ -41,7 +75,7 @@ async def get_photo(message: Message, state: FSMContext):
     await state.set_state(AddProduct.name)
     await message.answer("📝 Mahsulot nomini yozing.")
    
-    @dp.message()
+@dp.message()
 async def messages(message: Message):
     if message.text == "🛍 Mahsulotlar":
         await message.answer("🛍 Hozircha mahsulotlar qo'shilmagan.")

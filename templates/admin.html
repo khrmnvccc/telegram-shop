@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Admin Panel</title>
@@ -9,115 +12,239 @@
 <link rel="stylesheet" href="/static/style.css">
 
 </head>
+
 <body>
 
 <div class="login-page">
 
-<div class="login-card" style="max-width:900px;">
+<div class="admin-panel">
 
-<h1 style="text-align:center;margin-bottom:30px;">
-🛠 Admin Panel
-</h1>
+<div class="admin-header">
 
-<h2>➕ Mahsulot qo'shish</h2>
+<div class="admin-logo">
 
-<form action="/add_product" method="POST" enctype="multipart/form-data">
+🛠
 
-<label>1-rasm (Asosiy)</label>
-<input type="file" name="image" accept="image/*" required>
+</div>
 
-<label>2-rasm</label>
-<input type="file" name="image2" accept="image/*">
+<div>
 
-<label>3-rasm</label>
-<input type="file" name="image3" accept="image/*">
+<h1>Admin Panel</h1>
 
-<label>4-rasm</label>
-<input type="file" name="image4" accept="image/*">
+<p>
 
-<label>Mahsulot nomi</label>
-<input type="text" name="name" required>
+Asia Box boshqaruv markazi
 
-<label>Narxi</label>
-<input type="text" name="price" required>
+</p>
 
-<label>Batafsil ma'lumot</label>
+</div>
+
+</div>
+
+<div class="admin-grid">
+
+<div class="admin-card">
+
+<div class="admin-card-title">
+
+📦 Mahsulot qo'shish
+
+</div>
+
+<form
+action="/add_product"
+method="POST"
+enctype="multipart/form-data">
+
+<div class="admin-upload-grid">
+
+<div class="upload-item">
+
+<label>📷 Asosiy rasm</label>
+
+<input
+type="file"
+name="image"
+accept="image/*"
+required>
+
+</div>
+
+<div class="upload-item">
+
+<label>🖼 2-rasm</label>
+
+<input
+type="file"
+name="image2"
+accept="image/*">
+
+</div>
+
+<div class="upload-item">
+
+<label>🖼 3-rasm</label>
+
+<input
+type="file"
+name="image3"
+accept="image/*">
+
+</div>
+
+<div class="upload-item">
+
+<label>🖼 4-rasm</label>
+
+<input
+type="file"
+name="image4"
+accept="image/*">
+
+</div>
+
+</div>
+
+<label>📦 Mahsulot nomi</label>
+
+<input
+type="text"
+name="name"
+placeholder="Masalan: iPhone 16 Pro"
+required>
+
+<label>💰 Narxi</label>
+
+<input
+type="text"
+name="price"
+placeholder="Masalan: 18 500 000"
+required>
+
+<label>📝 Batafsil ma'lumot</label>
 
 <textarea
 name="description"
-rows="6"
-placeholder="Mahsulot haqida yozing..."
-></textarea>
+rows="7"
+placeholder="Mahsulot haqida batafsil yozing..."></textarea>
 
-<button type="submit" class="buy-btn">
-➕ Mahsulot qo'shish
+<button
+type="submit"
+class="buy-btn">
+
+🚀 Mahsulotni qo'shish
+
 </button>
 
 </form>
 
-<hr style="margin:40px 0;">
+</div>
 
-<h2>⚙️ Sayt sozlamalari</h2>
+<div class="admin-card">
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<div class="stat-icon">📦</div>
+
+<h2>{{ products_count }}</h2>
+
+<p>Mahsulotlar</p>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-icon">👥</div>
+
+<h2>{{ users_count }}</h2>
+
+<p>Foydalanuvchilar</p>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-icon">🛒</div>
+
+<h2>{{ orders_count }}</h2>
+
+<p>Buyurtmalar</p>
+
+</div>
+
+<div class="stat-card">
+
+<div class="stat-icon">💰</div>
+
+<h2>{{ "{:,}".format(total_income) }}</h2>
+
+<p>Umumiy daromad (so'm)</p>
+
+</div>
+
+</div>
+
+<div class="admin-card-title">
+
+⚙️ Sayt sozlamalari
+
+</div>
 
 <form
 action="/update_settings"
 method="POST"
-enctype="multipart/form-data"
->
+enctype="multipart/form-data">
 
-<label>Sayt nomi</label>
+<label>🏪 Sayt nomi</label>
 
 <input
 type="text"
 name="site_name"
 value="{{ settings[0] }}"
-required
->
+required>
 
-<label>Banner sarlavhasi</label>
+<label>🎯 Banner sarlavhasi</label>
 
 <input
 type="text"
 name="banner_title"
 value="{{ settings[1] }}"
-required
->
+required>
 
-<label>Banner matni</label>
+<label>📢 Banner matni</label>
 
 <textarea
 name="banner_text"
-rows="4"
+rows="5"
 required>{{ settings[2] }}</textarea>
 
-<label>Telefon</label>
+<label>📞 Telefon</label>
 
 <input
 type="text"
 name="phone"
 value="{{ settings[3] }}"
-required
->
+required>
 
-<label>Manzil</label>
+<label>📍 Manzil</label>
 
 <input
 type="text"
 name="address"
 value="{{ settings[4] }}"
-required
->
+required>
 
-<label>Ish vaqti</label>
+<label>🕒 Ish vaqti</label>
 
 <input
 type="text"
 name="work_time"
 value="{{ settings[5] }}"
-required
->
+required>
 
-<label>Banner rasmi</label>
+<label>🖼 Banner rasmi</label>
 
 <input
 type="file"
@@ -125,7 +252,7 @@ name="banner_image"
 accept="image/*"
 >
 
-<label>Logo rasmi</label>
+<label>🏷 Logo rasmi</label>
 
 <input
 type="file"
@@ -133,23 +260,100 @@ name="logo_image"
 accept="image/*"
 >
 
-<button type="submit" class="buy-btn">
+<button
+type="submit"
+class="buy-btn">
+
 💾 Sozlamalarni saqlash
+
 </button>
 
 </form>
 
-<br>
+</div>
+
+<div class="admin-card">
+
+<div class="admin-card-title">
+
+📦 Mahsulotlar ro'yxati
+
+</div>
+
+<table class="product-table">
+
+<tr>
+
+<th>Rasm</th>
+
+<th>Nomi</th>
+
+<th>Narxi</th>
+
+<th>Amal</th>
+
+</tr>
+
+{% for product in products %}
+
+<tr>
+
+<td>
+
+<img
+src="/static/uploads/{{ product[1] }}"
+class="table-image">
+
+</td>
+
+<td>{{ product[2] }}</td>
+
+<td>{{ product[3] }} so'm</td>
+
+<td>
+
+<a href="/delete/{{ product[0] }}">
+
+<button class="delete-btn">
+
+🗑 O'chirish
+
+</button>
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+<div class="admin-footer">
 
 <a href="/">
-<button class="detail-btn">
-⬅ Bosh sahifaga qaytish
+
+<button
+class="detail-btn">
+
+🏠 Bosh sahifaga qaytish
+
 </button>
+
 </a>
 
 </div>
 
 </div>
 
+</div>
+
 </body>
+
 </html>
+

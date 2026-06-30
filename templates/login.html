@@ -15,31 +15,29 @@
 
 <body>
 
-<div class="product-page">
+<div class="login-page">
 
-<div class="card" style="max-width:450px;margin:70px auto;">
+<div class="login-card">
 
-<div class="card-body">
+<div class="login-logo">
 
-<div style="text-align:center;margin-bottom:30px;">
-
-<h1 style="font-size:34px;">
-
-👋 Xush kelibsiz
-
-</h1>
-
-<p style="color:#777;margin-top:10px;">
-
-Hisobingizga kiring
-
-</p>
+🔐
 
 </div>
 
-<form action="/login" method="POST">
+<h1>
 
-<div style="margin-bottom:20px;">
+Xush kelibsiz
+
+</h1>
+
+<p class="login-subtitle">
+
+Hisobingizga kirish uchun telefon va parolni kiriting
+
+</p>
+
+<form action="/login" method="POST">
 
 <label>
 
@@ -52,11 +50,7 @@ type="text"
 name="username"
 placeholder="+998901234567"
 required
-style="width:100%;margin-top:10px;padding:15px;border-radius:15px;border:1px solid #ddd;font-size:16px;">
-
-</div>
-
-<div style="margin-bottom:25px;">
+>
 
 <label>
 
@@ -64,12 +58,23 @@ style="width:100%;margin-top:10px;padding:15px;border-radius:15px;border:1px sol
 
 </label>
 
+<div class="password-box">
+
 <input
 type="password"
+id="password"
 name="password"
 placeholder="Parolingiz"
 required
-style="width:100%;margin-top:10px;padding:15px;border-radius:15px;border:1px solid #ddd;font-size:16px;">
+>
+
+<span
+class="toggle-password"
+onclick="togglePassword()">
+
+👁️
+
+</span>
 
 </div>
 
@@ -93,9 +98,9 @@ class="buy-btn">
 
 </form>
 
-<div style="text-align:center;margin-top:30px;">
+<div class="login-bottom">
 
-<p style="color:#777;">
+<p>
 
 Hisobingiz yo'qmi?
 
@@ -119,7 +124,25 @@ class="detail-btn">
 
 </div>
 
-</div>
+<script>
+
+function togglePassword(){
+
+const password=document.getElementById("password");
+
+if(password.type==="password"){
+
+password.type="text";
+
+}else{
+
+password.type="password";
+
+}
+
+}
+
+</script>
 
 </div>
 

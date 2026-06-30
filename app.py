@@ -3,8 +3,9 @@ from werkzeug.utils import secure_filename
 import sqlite3
 import os
 import requests
-
-from config import TOKEN, ADMIN_ID
+import random
+from telegram_bot import send_code
+from flask import session
 
 app = Flask(__name__)
 app.secret_key = "123456789"
@@ -13,10 +14,6 @@ UPLOAD_FOLDER = "static/uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
-
-BOT_TOKEN = TOKEN
-CHAT_ID = ADMIN_ID
-
 
 # ==========================
 # BOSH SAHIFA
@@ -206,13 +203,54 @@ def admin():
 
     settings = cursor.fetchone()
 
+    # 📦 Mahsulotlar soni
+    cursor.execute("SELECT COUNT(*) FROM products")
+    products_count = cursor.fetchone()[0]
+
+    # 👥 Foydalanuvchilar soni
+    cursor.execute("SELECT COUNT(*) FROM users")
+    users_count = cursor.fetchone()[0]
+
+    # 🛒 Buyurtmalar soni
+    try:
+        cursor.execute("SELECT COUNT(*) FROM orders")
+        orders_count = cursor.fetchone()[0]
+    except:
+        orders_count = 0
+
+    # 💰 Umumiy daromad
+    try:
+        cursor.execute("SELECT SUM(total_price) FROM orders")
+        total_income = cursor.fetchone()[0]
+        if total_income is None:
+            total_income = 0
+    except:
+        total_income = 0
+
+    # 📋 Mahsulotlar ro'yxati
+    cursor.execute("""
+        SELECT
+            id,
+            image,
+            name,
+            price
+        FROM products
+        ORDER BY id DESC
+    """)
+
+    products = cursor.fetchall()
+
     db.close()
 
     return render_template(
         "admin.html",
-        settings=settings
+        settings=settings,
+        products_count=products_count,
+        users_count=users_count,
+        orders_count=orders_count,
+        total_income=total_income,
+        products=products
     )
-
  
 @app.route("/update_settings", methods=["POST"])
 def update_settings():
@@ -357,7 +395,7 @@ def delete_product(product_id):
     db.commit()
     db.close()
 
-    return redirect("/")
+    return redirect("/admin")
 
 
 @app.route("/edit/<int:product_id>")
@@ -519,12 +557,9 @@ def finish_order():
 # ==========================
 # LOGIN
 # ==========================
-
-
 @app.route("/register")
 def register():
     return render_template("register.html")
-
 
 @app.route("/register", methods=["POST"])
 def register_post():
@@ -545,32 +580,100 @@ def register_post():
 
     if user:
         db.close()
-        return "Bu telefon raqam allaqachon ro'yxatdan o'tgan!"
+        return render_template(
+            "register.html",
+            error="Bu telefon raqam allaqachon ro'yxatdan o'tgan!"
+        )
+
+    code = random.randint(100000, 999999)
 
     cursor.execute(
         """
-        INSERT INTO users(fullname, phone, password)
-        VALUES (?, ?, ?)
+        INSERT INTO otp_codes(phone, code)
+        VALUES (?, ?)
         """,
-        (
-            fullname,
-            phone,
-            password
-        )
+        (phone, str(code))
     )
 
     db.commit()
     db.close()
 
-    return redirect("/login")
+    send_code(code)
 
+    session["fullname"] = fullname
+    session["phone"] = phone
+    session["password"] = password
+
+    return redirect("/verify")
 
 
 @app.route("/login")
 def login():
     return render_template("login.html")
 
+@app.route("/verify")
+def verify():
 
+    if "phone" not in session:
+        return redirect("/register")
+
+    return render_template("verify.html")
+
+
+@app.route("/verify", methods=["POST"])
+def verify_post():
+
+    code = request.form.get("code", "").strip()
+
+    phone = session.get("phone")
+    fullname = session.get("fullname")
+    password = session.get("password")
+
+    if not phone:
+        return redirect("/register")
+
+    db = sqlite3.connect("database.db")
+    cursor = db.cursor()
+
+    cursor.execute(
+        """
+        SELECT code
+        FROM otp_codes
+        WHERE phone=?
+        ORDER BY id DESC
+        LIMIT 1
+        """,
+        (phone,)
+    )
+
+    row = cursor.fetchone()
+
+    if not row or row[0] != code:
+        db.close()
+        return render_template(
+            "verify.html",
+            error="❌ Tasdiqlash kodi noto'g'ri!"
+        )
+
+    cursor.execute(
+        """
+        INSERT INTO users(fullname, phone, password)
+        VALUES (?, ?, ?)
+        """,
+        (fullname, phone, password)
+    )
+
+    cursor.execute(
+        "DELETE FROM otp_codes WHERE phone=?",
+        (phone,)
+    )
+
+    db.commit()
+    db.close()
+
+    session.clear()
+
+    return redirect("/login")
 
 @app.route("/login", methods=["POST"])
 def login_post():
@@ -703,6 +806,7 @@ def product(product_id):
         product=product
     )
 
+send_code("123456")
 
 # ==========================
 # DASTURNI ISHGA TUSHIRISH
