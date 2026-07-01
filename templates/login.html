@@ -78,6 +78,24 @@ onclick="togglePassword()">
 
 </div>
 
+<div class="login-options">
+
+<label class="remember">
+
+<input type="checkbox">
+
+<span>Meni eslab qol</span>
+
+</label>
+
+<a href="/forgot_password" class="forgot-link">
+
+Parolni unutdingizmi?
+
+</a>
+
+</div>
+
 {% if error %}
 
 <div class="error-box">
@@ -124,6 +142,8 @@ class="detail-btn">
 
 </div>
 
+</div>
+
 <script>
 
 function togglePassword(){
@@ -143,8 +163,6 @@ password.type="password";
 }
 
 </script>
-
-</div>
 
 </body>
 

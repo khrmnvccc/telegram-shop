@@ -10,6 +10,23 @@ from flask import session
 app = Flask(__name__)
 app.secret_key = "123456789"
 
+def create_tables():
+    db = sqlite3.connect("database.db")
+    cursor = db.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS likes(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            product_id INTEGER
+        )
+    """)
+
+    db.commit()
+    db.close()
+
+create_tables()
+
 UPLOAD_FOLDER = "static/uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
@@ -40,6 +57,18 @@ def home():
 
     products = cursor.fetchall()
 
+    # Like qilingan mahsulotlar
+    liked_products = []
+
+    if session.get("user_id"):
+
+        cursor.execute(
+            "SELECT product_id FROM likes WHERE user_id=?",
+            (session["user_id"],)
+        )
+
+        liked_products = [row[0] for row in cursor.fetchall()]
+
     # Sayt sozlamalari
     cursor.execute("""
         SELECT
@@ -48,7 +77,7 @@ def home():
             banner_text,
             phone,
             address,
-            work_time
+            work_time,
             banner_image,
             logo_image
         FROM settings
@@ -65,14 +94,66 @@ def home():
         "index.html",
         products=products,
         cart_count=cart_count,
-        settings=settings
+        settings=settings,
+        liked_products=liked_products
     )
 
+@app.route("/favorites")
+def favorites():
 
+    if "user_id" not in session:
+        return redirect("/login")
+
+    db = sqlite3.connect("database.db")
+    cursor = db.cursor()
+
+    cursor.execute("""
+        SELECT products.id, products.name, products.price, products.image
+        FROM products
+        JOIN likes ON products.id = likes.product_id
+        WHERE likes.user_id = ?
+    """, (session["user_id"],))
+
+    products = cursor.fetchall()
+
+    # Like qilingan mahsulotlar ro'yxati
+    liked_products = [row[0] for row in products]
+
+    # Savat soni
+    cart_count = len(session.get("cart", []))
+
+    # Sozlamalar
+    cursor.execute("""
+        SELECT
+            site_name,
+            banner_title,
+            banner_text,
+            phone,
+            address,
+            work_time,
+            banner_image,
+            logo_image
+        FROM settings
+        WHERE id=1
+    """)
+
+    settings = cursor.fetchone()
+
+    db.close()
+
+    return render_template(
+        "index.html",
+        products=products,
+        liked_products=liked_products,
+        cart_count=cart_count,
+        settings=settings
+    )
      
 # ==========================
 # SAVATCHA
 # ==========================
+
+from flask import jsonify
 
 @app.route("/add/<int:product_id>")
 def add(product_id):
@@ -84,7 +165,10 @@ def add(product_id):
     cart.append(product_id)
     session["cart"] = cart
 
-    return redirect("/")
+    return jsonify({
+        "success": True,
+        "count": len(cart)
+    })
 
 @app.route("/cart")
 def show_cart():
@@ -563,9 +647,11 @@ def register():
 
 @app.route("/register", methods=["POST"])
 def register_post():
+    print("REGISTER ishladi")
 
     fullname = request.form["fullname"]
-    phone = request.form["phone"]
+    phone = request.form["phone"].strip()
+    phone = phone.replace(" ", "").replace("+", "")
     password = request.form["password"]
 
     db = sqlite3.connect("database.db")
@@ -585,6 +671,23 @@ def register_post():
             error="Bu telefon raqam allaqachon ro'yxatdan o'tgan!"
         )
 
+    # Telegramdan chat_id olish
+    cursor.execute(
+        "SELECT chat_id FROM telegram_users WHERE phone=?",
+        (phone,)
+    )
+
+    telegram_user = cursor.fetchone()
+
+    if not telegram_user:
+        db.close()
+        return render_template(
+            "register.html",
+            error="❌ Avval @Asia_Store_uz_bot botiga /start bosing va telefon raqamingizni yuboring!"
+        )
+
+    chat_id = telegram_user[0]
+
     code = random.randint(100000, 999999)
 
     cursor.execute(
@@ -598,7 +701,7 @@ def register_post():
     db.commit()
     db.close()
 
-    send_code(code)
+    send_code(chat_id, code)
 
     session["fullname"] = fullname
     session["phone"] = phone
@@ -607,9 +710,87 @@ def register_post():
     return redirect("/verify")
 
 
+
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def login_post():
+
+    username = request.form["username"].strip().replace("+", "")
+    password = request.form["password"]
+
+    # Admin
+    if username == "admin" and password == "12345":
+        session["admin"] = True
+        return redirect("/admin")
+
+    # Oddiy foydalanuvchi
+    db = sqlite3.connect("database.db")
+    cursor = db.cursor()
+
+    cursor.execute("""
+        SELECT id, fullname
+        FROM users
+        WHERE phone=? AND password=?
+    """, (username, password))
+
+    user = cursor.fetchone()
+    db.close()
+
+    if user:
+        session["user_id"] = user[0]
+        session["fullname"] = user[1]
+        return redirect("/")
+
+    return render_template(
+        "login.html",
+        error="❌ Telefon yoki parol noto'g'ri!"
+    )
+
+from flask import jsonify
+
+@app.route("/like/<int:product_id>")
+def like(product_id):
+
+    if "user_id" not in session:
+        return jsonify({"login": False})
+
+    user_id = session["user_id"]
+
+    db = sqlite3.connect("database.db")
+    cursor = db.cursor()
+
+    cursor.execute(
+        "SELECT id FROM likes WHERE user_id=? AND product_id=?",
+        (user_id, product_id)
+    )
+
+    like = cursor.fetchone()
+
+    if like:
+
+        cursor.execute(
+            "DELETE FROM likes WHERE user_id=? AND product_id=?",
+            (user_id, product_id)
+        )
+
+        liked = False
+
+    else:
+
+        cursor.execute(
+            "INSERT INTO likes(user_id,product_id) VALUES(?,?)",
+            (user_id, product_id)
+        )
+
+        liked = True
+
+    db.commit()
+    db.close()
+
+    return jsonify({"login": True, "liked": liked})
 
 @app.route("/verify")
 def verify():
@@ -674,44 +855,6 @@ def verify_post():
     session.clear()
 
     return redirect("/login")
-
-@app.route("/login", methods=["POST"])
-def login_post():
-
-    username = request.form["username"]
-    password = request.form["password"]
-
-    # Admin
-    if username == "admin" and password == "12345":
-        session["admin"] = True
-        return redirect("/admin")
-
-    # Oddiy foydalanuvchi
-    db = sqlite3.connect("database.db")
-    cursor = db.cursor()
-
-    cursor.execute(
-        """
-        SELECT id, fullname
-        FROM users
-        WHERE phone=? AND password=?
-        """,
-        (username, password)
-    )
-
-    user = cursor.fetchone()
-
-    db.close()
-
-    if user:
-        session["user_id"] = user[0]
-        session["fullname"] = user[1]
-        return redirect("/")
-
-    return render_template(
-    "login.html",
-    error="❌ Telefon yoki parol noto'g'ri!"
-)
 
 
 
@@ -805,8 +948,6 @@ def product(product_id):
         "product.html",
         product=product
     )
-
-send_code("123456")
 
 # ==========================
 # DASTURNI ISHGA TUSHIRISH

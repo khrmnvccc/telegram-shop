@@ -440,19 +440,30 @@ PRODUCTS
 
     max-width:1300px;
 
-    margin:35px auto;
+    margin:25px auto;
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 
-    gap:28px;
+    gap:18px;
 
 }
 
 /* CARD */
 
 .card{
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    transition:.35s;
+
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    transition: .35s ease;
 
     background:rgba(255,255,255,.72);
 
@@ -471,18 +482,18 @@ PRODUCTS
 }
 
 .card:hover{
-
-    transform:translateY(-8px);
-
-    box-shadow:0 22px 55px rgba(0,0,0,.12);
-
+    transform: translateY(-8px);
+    
+    box-shadow:0 20px 45px rgba(0,0,0,.16);
 }
+
+
 
 .card img{
 
     width:100%;
 
-    height:250px;
+    height:190px;
 
     object-fit:cover;
 
@@ -500,13 +511,13 @@ PRODUCTS
 
 .card-body{
 
-    padding:22px;
+    padding:16px;
 
 }
 
 .card-body h2{
 
-    font-size:22px;
+    font-size:18px;
 
     margin-bottom:12px;
 
@@ -1120,59 +1131,55 @@ APPLE BOTTOM NAV
 
     left:50%;
 
-    transform:translateX(-50%);
-
     bottom:18px;
+
+    transform:translateX(-50%);
 
     width:92%;
 
-    max-width:430px;
+    max-width:480px;
 
-    height:72px;
-
-    display:none;
+    display:flex;
 
     justify-content:space-around;
 
     align-items:center;
 
-    background:rgba(255,255,255,.78);
+    padding:12px 10px;
 
-    backdrop-filter:blur(35px);
+    border-radius:28px;
 
-    -webkit-backdrop-filter:blur(35px);
+    background:rgba(255,255,255,.18);
 
-    border-radius:30px;
+    backdrop-filter:blur(24px);
 
-    border:1px solid rgba(255,255,255,.6);
+    -webkit-backdrop-filter:blur(24px);
 
-    box-shadow:0 15px 45px rgba(0,0,0,.12);
+    border:1px solid rgba(255,255,255,.22);
 
-    z-index:99999;
+    box-shadow:0 12px 40px rgba(0,0,0,.15);
+
+    z-index:999;
 
 }
 
 .bottom-item{
 
-    flex:1;
-
     display:flex;
 
     flex-direction:column;
 
-    justify-content:center;
-
     align-items:center;
 
-    gap:4px;
+    justify-content:center;
+
+    color:#666;
 
     text-decoration:none;
 
-    color:#888;
+    transition:.25s;
 
-    font-size:12px;
-
-    transition:.3s;
+    width:70px;
 
 }
 
@@ -1180,7 +1187,9 @@ APPLE BOTTOM NAV
 
     font-size:24px;
 
-    transition:.3s;
+    margin-bottom:4px;
+
+    transition:.25s;
 
 }
 
@@ -1691,7 +1700,7 @@ font-size:16px;
 
 .price{
 
-font-size:22px;
+font-size:19px;
 
 }
 
@@ -2444,15 +2453,36 @@ font-size:15px;
 
 .buy-btn{
 
-height:56px;
+    width:100%;
 
-font-size:16px;
+    border-radius:16px;
+
+    padding:12px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:.3s;
 
 }
 
 .detail-btn{
 
 height:54px;
+
+}
+.detail-btn{
+
+    border-radius:16px;
+
+    transition:.3s;
+
+}
+
+.detail-btn:hover{
+
+    transform:translateY(-2px);
 
 }
 
@@ -3395,5 +3425,297 @@ align-items:flex-start;
 gap:14px;
 
 }
+
+}
+
+.favorite{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.22);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
+
+    text-decoration:none;
+
+    font-size:22px;
+
+    transition:.25s;
+
+    z-index:50;
+
+}
+
+.favorite:hover{
+
+    transform:scale(1.12);
+
+}
+
+.favorite:active{
+
+    transform:scale(.90);
+
+}
+
+.buy-btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.buy-btn:active{
+
+    transform:scale(.97);
+
+}
+
+.bottom-item:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.bottom-item:hover span{
+
+    transform:scale(1.18);
+
+}
+
+.bottom-item.active{
+
+    color:#7c3aed;
+
+}
+
+.bottom-item.active span{
+
+    transform:scale(1.15);
+
+}
+
+.bottom-item b{
+
+    position:absolute;
+
+    margin-top:-16px;
+
+    margin-left:18px;
+
+    background:#ff2d55;
+
+    color:white;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    font-size:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.banner{
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.banner::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(135deg,
+    rgba(255,255,255,.18),
+    rgba(255,255,255,.05));
+
+    backdrop-filter:blur(20px);
+
+    pointer-events:none;
+
+}
+
+.banner img{
+
+    transition:.6s;
+
+}
+
+.banner:hover img{
+
+    transform:scale(1.04);.card img{
+
+    transition:.45s ease;
+
+}
+
+.card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+}
+
+.favorite{
+
+    animation:heartIdle .35s;
+
+}
+
+.favorite:active{
+
+    transform:scale(.82);
+
+}
+
+@keyframes heartIdle{
+
+    0%{
+
+        transform:scale(.5);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+.buy-btn,
+.detail-btn,
+.admin-btn,
+.delete-btn{
+
+    transition:.3s;
+
+}
+
+.buy-btn:hover,
+.detail-btn:hover,
+.admin-btn:hover,
+.delete-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 24px rgba(0,0,0,.15);
+
+}
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:110px;
+
+    transform:translateX(-50%);
+
+    background:rgba(40,40,40,.85);
+
+    color:white;
+
+    padding:14px 22px;
+
+    border-radius:18px;
+
+    backdrop-filter:blur(20px);
+
+    -webkit-backdrop-filter:blur(20px);
+
+    opacity:0;
+
+    transition:.35s;
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    bottom:130px;
+
+}
+
+.order-btn{
+
+    width:100%;
+
+    margin-top:12px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#7c3aed,#9333ea);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(124,58,237,.35);
+
+}
+
+.order-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 35px rgba(124,58,237,.45);
+
+}
+
+.order-btn:active{
+
+    transform:scale(.97);
 
 }

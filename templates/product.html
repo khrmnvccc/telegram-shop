@@ -81,32 +81,37 @@
             {{ product[7] }}
 
         </div>
+<div class="product-buttons">
 
-        <div class="product-buttons">
+    <a href="/add/{{ product[0] }}">
 
-            <a href="/add/{{ product[0] }}">
+        <button class="buy-btn">
 
-                <button class="buy-btn">
+            🛒 Savatga qo'shish
 
-                    🛒 Savatga qo'shish
+        </button>
 
-                </button>
+    </a>
 
-            </a>
+    <a href="/order/{{ product[0] }}">
 
-            <a href="/">
+        <button class="order-btn">
 
-                <button class="detail-btn">
+            ⚡ Buyurtma berish
 
-                    ⬅ Bosh sahifaga qaytish
+        </button>
 
-                </button>
+    </a>
 
-            </a>
+    <a href="/">
 
-        </div>
+        <button class="detail-btn">
 
-    </div>
+            ⬅ Bosh sahifaga qaytish
+
+        </button>
+
+    </a>
 
 </div>
 

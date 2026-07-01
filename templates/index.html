@@ -177,10 +177,15 @@ Qidirish
     <div class="card-image">
 
         <img src="{{ product[3] }}" alt="{{ product[1] }}">
-
-        <div class="favorite">
-            🤍
-        </div>
+            <a href="#" class="favorite" data-id="{{ product[0] }}">
+            </a>
+            {% if product[0] in liked_products %}
+                ❤️
+            {% else %}
+                🤍
+           {% endif %}
+       </a>
+        
 
     </div>
 
@@ -222,15 +227,13 @@ Qidirish
 
         </a>
 
-        <a href="/add/{{ product[0] }}">
+           <button
+               class="buy-btn add-cart"
+               data-id="{{ product[0] }}">
 
-            <button class="buy-btn">
+               🛒 Savatga qo'shish
 
-                🛒 Savatga qo'shish
-
-            </button>
-
-        </a>
+           </button>
 
         {% if session.get("admin") %}
 
@@ -296,13 +299,19 @@ Qidirish
 
     </a>
 
-    <a href="/" class="bottom-item">
+    <a href="/favorites" class="bottom-item">
 
-        <span>🔍</span>
+    <span>❤️</span>
 
-        <small>Search</small>
+    <small>Likes</small>
 
     </a>
+
+        
+
+        
+
+    
 
     <a href="/cart" class="bottom-item">
 
@@ -367,6 +376,92 @@ window.addEventListener("load",()=>{
     },900);
 
 });
+
+</script>
+
+<script>
+
+document.querySelectorAll(".favorite").forEach(btn=>{
+
+    btn.onclick=async function(e){
+
+        e.preventDefault();
+
+        let id=this.dataset.id;
+
+        let r=await fetch("/like/"+id);
+
+        let data=await r.json();
+
+        if(!data.login){
+
+            location="/login";
+
+            return;
+
+        }
+
+        this.innerHTML=data.liked ? "❤️" : "🤍";
+
+        this.style.transform="scale(1.35)";
+
+        setTimeout(()=>{
+            this.style.transform="scale(1)";
+        },180);
+
+    }
+
+})
+
+</script>
+
+<div class="toast" id="toast">
+✅ Mahsulot savatga qo'shildi
+</div>
+
+<script>
+
+document.querySelectorAll(".add-cart").forEach(btn=>{
+
+    btn.onclick=async function(){
+
+        let id=this.dataset.id;
+
+        let r=await fetch("/add/"+id);
+
+        let data=await r.json();
+
+        if(data.success){
+
+            document.getElementById("toast").classList.add("show");
+
+            setTimeout(()=>{
+
+                document.getElementById("toast").classList.remove("show");
+
+            },1800);
+
+            let badge=document.querySelector(".bottom-item b");
+
+            if(badge){
+
+                badge.innerHTML=data.count;
+
+            }
+
+            this.style.transform="scale(.92)";
+
+            setTimeout(()=>{
+
+                this.style.transform="scale(1)";
+
+            },150);
+
+        }
+
+    }
+
+})
 
 </script>
 
